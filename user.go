@@ -1,5 +1,10 @@
 package dbl
 
+import (
+	"encoding/json"
+	"io/ioutil"
+)
+
 type User struct {
 	// The id of the user
 	ID uint64 `json:"id"`
@@ -58,4 +63,34 @@ type Social struct {
 
 	// The github username of the user (may be empty)
 	Github string `json:"github"`
+}
+
+func (c *DBLClient) GetUser(UserID string) (*User, error) {
+	res, err := c.client.Get(BaseURL + "users/" + UserID)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != 200 {
+		return nil, ErrRequestFailed
+	}
+
+	user := &User{}
+
+	err = json.Unmarshal(body, user)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }
