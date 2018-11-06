@@ -6,7 +6,7 @@ import (
 
 type Bot struct {
 	// The id of the bot
-	ID uint64 `json:"id"`
+	ID string `json:"id"`
 
 	// The username of the bot
 	Username string `json:"username"`
