@@ -2,7 +2,6 @@ package dbl
 
 import (
 	"encoding/json"
-	"io/ioutil"
 )
 
 type User struct {
@@ -72,16 +71,10 @@ func (c *DBLClient) GetUser(UserID string) (*User, error) {
 		return nil, err
 	}
 
-	defer res.Body.Close()
-
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := readBody(res)
 
 	if err != nil {
 		return nil, err
-	}
-
-	if res.StatusCode != 200 {
-		return nil, ErrRequestFailed
 	}
 
 	user := &User{}
