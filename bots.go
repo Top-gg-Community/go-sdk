@@ -130,10 +130,10 @@ type BotStatsPayload struct {
 	// The amount of servers the bot is in per shard.
 	Shards []int `json:"shards"`
 
-	// The zero-indexed id of the shard posting. Makes server_count set the shard specific server count
+	// The zero-indexed id of the shard posting. Makes server_count set the shard specific server count (optional)
 	ShardID int `json:"shard_id"`
 
-	// The amount of shards the bot has
+	// The amount of shards the bot has (optional)
 	ShardCount int `json:"shard_count"`
 }
 
