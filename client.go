@@ -23,6 +23,9 @@ type DBLClient struct {
 
 	timeout time.Duration
 
+	// Upon exceeding a rate limit, this will be updated with the retry-after value
+	RetryAfter int
+
 	token string
 }
 

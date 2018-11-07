@@ -13,9 +13,7 @@ const (
 func TestUsers(t *testing.T) {
 	client, err := NewClient("Unauthenticated request")
 
-	if err != nil {
-		t.Error("Client creation error", err)
-	}
+	assert.Nil(t, err, "Client should be created w/o error")
 
 	user, err := client.GetUser(testUserID)
 

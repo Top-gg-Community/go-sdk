@@ -64,6 +64,7 @@ type Social struct {
 	Github string `json:"github"`
 }
 
+// Information about a particular user
 func (c *DBLClient) GetUser(UserID string) (*User, error) {
 	res, err := c.client.Get(BaseURL + "users/" + UserID)
 
@@ -71,7 +72,7 @@ func (c *DBLClient) GetUser(UserID string) (*User, error) {
 		return nil, err
 	}
 
-	body, err := readBody(res)
+	body, err := c.readBody(res)
 
 	if err != nil {
 		return nil, err

@@ -50,7 +50,7 @@ type Bot struct {
 	Github string `json:"github"`
 
 	// The owners of the bot. First one in the array is the main owner
-	Owners []uint64 `json:"owners"`
+	Owners []string `json:"owners"`
 
 	// The custom bot invite url of the bot (may be empty)
 	Invite string `json:"invite"`
@@ -62,26 +62,53 @@ type Bot struct {
 	CertifiedBot bool `json:"certifiedBot"`
 
 	// The vanity url of the bot (may be empty)
-	Vanity *string `json:"vanity"`
+	Vanity string `json:"vanity"`
+
+	// The monthly amount of upvotes the bot has (undocumented)
+	MonthlyPoints int `json:"monthlyPoints"`
 
 	// The amount of upvotes the bot has
 	Points int `json:"points"`
+
+	// The GuildID for the donate bot (undocumented) (may be empty)
+	DonateBotGuildID string `json:"donatebotguildid"`
 }
 
 type GetBotsPayload struct {
-	Limit  int
+	// The amount of bots to return. Max. 500
+	// Default 50
+	Limit int
+
+	// Amount of bots to skip
+	// Default 0
 	Offset int
+
+	// Field search filter
 	Search map[string]string
-	Sort   string
+
+	// The field to sort by. Prefix with "-" to reverse the order
+	Sort string
+
+	// A list of fields to show
 	Fields []string
 }
 
 type GetBotsResult struct {
+	// Slice of Bot pointers of matching bots
 	Results []*Bot `json:"results"`
-	Limit   int    `json:"limit"`
-	Offset  int    `json:"offset"`
-	Count   int    `json:"count"`
-	Total   int    `json:"total"`
+
+	// The limit used
+	Limit int `json:"limit"`
+
+	// The offset used
+	Offset int `json:"offset"`
+
+	// The length of the results array
+	Count int `json:"count"`
+
+	// The total number of bots matching your search
+	// Not limited by "limit" field
+	Total int `json:"total"`
 }
 
 type BotStats struct {
@@ -110,6 +137,8 @@ type BotStatsPayload struct {
 	ShardCount int `json:"shard_count"`
 }
 
+// Information about different bots with an optional filter parameter
+// Use nil if no option is passed
 func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
 	if !c.limiter.Allow() {
 		return nil, ErrLocalRatelimit
@@ -155,7 +184,7 @@ func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
 		return nil, err
 	}
 
-	body, err := readBody(res)
+	body, err := c.readBody(res)
 
 	if err != nil {
 		return nil, err
@@ -172,6 +201,7 @@ func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
 	return bots, nil
 }
 
+// Information about a specific bot
 func (c *DBLClient) GetBot(botID string) (*Bot, error) {
 	if !c.limiter.Allow() {
 		return nil, ErrLocalRatelimit
@@ -183,7 +213,7 @@ func (c *DBLClient) GetBot(botID string) (*Bot, error) {
 		return nil, err
 	}
 
-	body, err := readBody(res)
+	body, err := c.readBody(res)
 
 	if err != nil {
 		return nil, err
@@ -200,6 +230,9 @@ func (c *DBLClient) GetBot(botID string) (*Bot, error) {
 	return bot, nil
 }
 
+// Use this endpoint to see who have upvoted your bot
+// Requires authentication
+// IF YOU HAVE OVER 1000 VOTES PER MONTH YOU HAVE TO USE THE WEBHOOKS AND CAN NOT USE THIS
 func (c *DBLClient) GetVotes(botID string) ([]*User, error) {
 	if c.token == "" {
 		return nil, ErrRequireAuthentication
@@ -223,7 +256,7 @@ func (c *DBLClient) GetVotes(botID string) ([]*User, error) {
 		return nil, err
 	}
 
-	body, err := readBody(res)
+	body, err := c.readBody(res)
 
 	if err != nil {
 		return nil, err
@@ -240,6 +273,8 @@ func (c *DBLClient) GetVotes(botID string) ([]*User, error) {
 	return users, nil
 }
 
+// Use this endpoint to see who have upvoted your bot in the past 24 hours. It is safe to use this even if you have over 1k votes.
+// Requires authentication
 func (c *DBLClient) HasUserVoted(botID, userID string) (bool, error) {
 	if c.token == "" {
 		return false, ErrRequireAuthentication
@@ -269,7 +304,7 @@ func (c *DBLClient) HasUserVoted(botID, userID string) (bool, error) {
 		return false, err
 	}
 
-	body, err := readBody(res)
+	body, err := c.readBody(res)
 
 	if err != nil {
 		return false, err
@@ -286,6 +321,7 @@ func (c *DBLClient) HasUserVoted(botID, userID string) (bool, error) {
 	return cr.Voted == 1, nil
 }
 
+// Information about a specific bot's stats
 func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
 	if !c.limiter.Allow() {
 		return nil, ErrLocalRatelimit
@@ -297,7 +333,7 @@ func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
 		return nil, err
 	}
 
-	body, err := readBody(res)
+	body, err := c.readBody(res)
 
 	if err != nil {
 		return nil, err
@@ -314,6 +350,9 @@ func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
 	return botStats, nil
 }
 
+// Post your bot's stats
+// Requires authentication
+// If your bot is unsharded, pass in server count as the only item in the slice
 func (c *DBLClient) PostBotStats(botID string, payload BotStatsPayload) error {
 	if !c.limiter.Allow() {
 		return ErrLocalRatelimit

@@ -15,7 +15,7 @@ func (c *DBLClient) IsMultiplierActive() (bool, error) {
 		return false, err
 	}
 
-	body, err := readBody(res)
+	body, err := c.readBody(res)
 
 	if err != nil {
 		return false, err
