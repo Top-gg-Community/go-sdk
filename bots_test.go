@@ -22,7 +22,23 @@ func TestBots(t *testing.T) {
 		Limit: fetchLimit,
 	})
 
-	assert.Equal(t, len(bots.Results), fetchLimit)
-	assert.Equal(t, bots.Total, fetchLimit)
-	assert.Equal(t, bots.Offset, 0)
+	assert.Nil(t, err)
+
+	assert.Equal(t, len(bots.Results), fetchLimit, "Results array size should match request limit")
+	assert.Equal(t, bots.Total, fetchLimit, "Total count should match request limit")
+	assert.Equal(t, bots.Offset, 0, "Offset should be zero or non-specified")
+}
+
+func TestBot(t *testing.T) {
+	client, err := NewClient("Unauthenticated request")
+
+	if err != nil {
+		t.Error("Client creation error", err)
+	}
+
+	bot, err := client.GetBot(testBotID)
+
+	assert.Nil(t, err, "Unable to get user data")
+
+	assert.Equal(t, bot.ID, testBotID, "Request & result bot ID should match")
 }

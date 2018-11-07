@@ -19,9 +19,7 @@ func TestUsers(t *testing.T) {
 
 	user, err := client.GetUser(testUserID)
 
-	if err != nil {
-		t.Error("Unable to get user data", err)
-	}
+	assert.Nil(t, err, "Unable to get user data")
 
 	assert.Equal(t, user.ID, testUserID, "Request & response user ID should match")
 }
