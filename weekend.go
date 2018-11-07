@@ -8,6 +8,7 @@ type weekendResponse struct {
 	IsWeekend bool `json:"is_weekend"`
 }
 
+// Check if the multiplier is live for the weekend
 func (c *DBLClient) IsMultiplierActive() (bool, error) {
 	res, err := c.client.Get(BaseURL + "weekend")
 
