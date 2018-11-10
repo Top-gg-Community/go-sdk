@@ -17,14 +17,16 @@ var (
 )
 
 type DBLClient struct {
+	// bots/* 60/m with 1 hour block if exceeded
+	// Indicates how long the timeout period is/when you will be able to send requests again
+	// Upon exceeding a rate limit, this will be updated with the retry-after value.
+	RetryAfter int
+
 	limiter *rate.Limiter
 
 	client *http.Client
 
 	timeout time.Duration
-
-	// Upon exceeding a rate limit, this will be updated with the retry-after value
-	RetryAfter int
 
 	token string
 }

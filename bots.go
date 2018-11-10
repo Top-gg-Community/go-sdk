@@ -138,6 +138,7 @@ type BotStatsPayload struct {
 }
 
 // Information about different bots with an optional filter parameter
+//
 // Use nil if no option is passed
 func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
 	if !c.limiter.Allow() {
@@ -231,7 +232,9 @@ func (c *DBLClient) GetBot(botID string) (*Bot, error) {
 }
 
 // Use this endpoint to see who have upvoted your bot
+//
 // Requires authentication
+//
 // IF YOU HAVE OVER 1000 VOTES PER MONTH YOU HAVE TO USE THE WEBHOOKS AND CAN NOT USE THIS
 func (c *DBLClient) GetVotes(botID string) ([]*User, error) {
 	if c.token == "" {
@@ -274,6 +277,7 @@ func (c *DBLClient) GetVotes(botID string) ([]*User, error) {
 }
 
 // Use this endpoint to see who have upvoted your bot in the past 24 hours. It is safe to use this even if you have over 1k votes.
+//
 // Requires authentication
 func (c *DBLClient) HasUserVoted(botID, userID string) (bool, error) {
 	if c.token == "" {
@@ -351,7 +355,9 @@ func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
 }
 
 // Post your bot's stats
+//
 // Requires authentication
+//
 // If your bot is unsharded, pass in server count as the only item in the slice
 func (c *DBLClient) PostBotStats(botID string, payload BotStatsPayload) error {
 	if !c.limiter.Allow() {
