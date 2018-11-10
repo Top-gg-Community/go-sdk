@@ -21,7 +21,7 @@ type User struct {
 	DefAvatar string `json:"defAvatar"`
 
 	// The bio of the user
-	Bio string `json:"bio"`
+	Biography string `json:"bio"`
 
 	// The banner image url of the user (may be empty)
 	Banner string `json:"banner"`
