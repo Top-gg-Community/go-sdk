@@ -72,6 +72,15 @@ type Bot struct {
 
 	// The GuildID for the donate bot (undocumented) (may be empty)
 	DonateBotGuildID string `json:"donatebotguildid"`
+
+	// The amount of servers the bot is in (undocumented)
+	ServerCount int `json:"server_count"`
+
+	// Server affiliation ("Servers this bot is in" field) (undocumented)
+	GuildAffiliation []string `json:"guilds"`
+
+	// The amount of servers the bot is in per shard. Always present but can be empty (undocumented)
+	Shards []int `json:"shards"`
 }
 
 type GetBotsPayload struct {
