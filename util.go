@@ -36,8 +36,9 @@ func (c *DBLClient) readBody(res *http.Response) ([]byte, error) {
 			return nil, err
 		}
 
-		// Not sure if mutex is needed for this one
+		c.Lock()
 		c.RetryAfter = rr.RetryAfter
+		c.Unlock()
 
 		return nil, ErrRemoteRatelimit
 	}

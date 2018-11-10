@@ -3,6 +3,7 @@ package dbl
 import (
 	"errors"
 	"net/http"
+	"sync"
 	"time"
 
 	"golang.org/x/time/rate"
@@ -17,6 +18,8 @@ var (
 )
 
 type DBLClient struct {
+	sync.Mutex
+
 	// bots/* 60/m with 1 hour block if exceeded
 	// Indicates how long the timeout period is/when you will be able to send requests again
 	// Upon exceeding a rate limit, this will be updated with the retry-after value.
