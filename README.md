@@ -8,6 +8,18 @@ An API wrapper for [Discord Bots](https://discordbots.org/)
 
 Godoc is available here: https://godoc.org/github.com/rumblefrog/go-dbl
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Guides](#guides)
+  - [Installing](#installing)
+  - [Posting Stats](#posting-stats)
+  - [Timeout option](#timeout-option)
+  - [Ratelimits](#ratelimits)
+  - [More details](#more-details)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Guides
 
@@ -54,5 +66,15 @@ func main() {
 	// ...
 }
 ```
+
+### Ratelimits
+
+There's a local token bucket rate limiter, allowing for 60 requests a minute (single/burst)
+
+Upon reaching the local rate limit, `ErrLocalRatelimit` error will be returned
+
+If remote rate limit is exceeded, `ErrRemoteRatelimit` error will be returned and `RetryAfter` in client fields will be updated with the retry time
+
+### More details
 
 For more details, Godoc and tests are available

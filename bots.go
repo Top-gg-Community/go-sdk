@@ -61,7 +61,7 @@ type Bot struct {
 	// The certified status of the bot
 	CertifiedBot bool `json:"certifiedBot"`
 
-	// The vanity url of the bot (may be empty)
+	// The vanity url of the bot (deprecated) (may be empty)
 	Vanity string `json:"vanity"`
 
 	// The monthly amount of upvotes the bot has (undocumented)
