@@ -29,7 +29,7 @@ type DBLClient struct {
 	token string
 }
 
-func SetTimeout(duration time.Duration) func(*DBLClient) error {
+func TimeoutOption(duration time.Duration) func(*DBLClient) error {
 	return func(c *DBLClient) error {
 		c.client.Timeout = duration
 
