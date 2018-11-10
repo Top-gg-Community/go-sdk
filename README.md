@@ -57,7 +57,7 @@ func main() {
 func main() {
 	client, err := dbl.NewClient(
 		"Token",
-		dbl.TimeoutOption(time.Second * 5) // // Setting timeout option. Default is 3 seconds
+		dbl.TimeoutOption(time.Second * 5) // Setting timeout option. Default is 3 seconds
 	)
 	
 	if err != nil {
