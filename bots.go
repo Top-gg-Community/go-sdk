@@ -3,7 +3,6 @@ package dbl
 import (
 	"bytes"
 	"encoding/json"
-	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -154,7 +153,7 @@ func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
 		return nil, ErrLocalRatelimit
 	}
 
-	req, err := http.NewRequest("GET", BaseURL+"bots", nil)
+	req, err := c.createRequest("GET", "bots", nil, true)
 
 	if filter != nil {
 		q := req.URL.Query()
@@ -217,7 +216,13 @@ func (c *DBLClient) GetBot(botID string) (*Bot, error) {
 		return nil, ErrLocalRatelimit
 	}
 
-	res, err := c.client.Get(BaseURL + "bots/" + botID)
+	req, err := c.createRequest("GET", "bots/"+botID, nil, true)
+
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := c.client.Do(req)
 
 	if err != nil {
 		return nil, err
@@ -254,13 +259,11 @@ func (c *DBLClient) GetVotes(botID string) ([]*User, error) {
 		return nil, ErrLocalRatelimit
 	}
 
-	req, err := http.NewRequest("GET", BaseURL+"bots/"+botID+"/votes", nil)
+	req, err := c.createRequest("GET", "bots/"+botID+"/votes", nil, true)
 
 	if err != nil {
 		return nil, err
 	}
-
-	req.Header.Set("Authorization", c.token)
 
 	res, err := c.client.Do(req)
 
@@ -297,13 +300,11 @@ func (c *DBLClient) HasUserVoted(botID, userID string) (bool, error) {
 		return false, ErrLocalRatelimit
 	}
 
-	req, err := http.NewRequest("GET", BaseURL+"bots/"+botID+"/check", nil)
+	req, err := c.createRequest("GET", "bots/"+botID+"/check", nil, true)
 
 	if err != nil {
 		return false, err
 	}
-
-	req.Header.Set("Authorization", c.token)
 
 	q := req.URL.Query()
 
@@ -340,7 +341,13 @@ func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
 		return nil, ErrLocalRatelimit
 	}
 
-	res, err := c.client.Get(BaseURL + "bots/" + botID + "/stats")
+	req, err := c.createRequest("GET", "bots/"+botID+"/stats", nil, true)
+
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := c.client.Do(req)
 
 	if err != nil {
 		return nil, err
@@ -379,7 +386,7 @@ func (c *DBLClient) PostBotStats(botID string, payload BotStatsPayload) error {
 		return err
 	}
 
-	req, err := http.NewRequest("POST", BaseURL+"bots/"+botID+"/stats", bytes.NewBuffer(encoded))
+	req, err := c.createRequest("POST", "bots/"+botID+"/stats", bytes.NewBuffer(encoded), true)
 
 	if err != nil {
 		return err

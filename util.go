@@ -2,6 +2,7 @@ package dbl
 
 import (
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"net/http"
 )
@@ -44,4 +45,18 @@ func (c *DBLClient) readBody(res *http.Response) ([]byte, error) {
 	}
 
 	return body, nil
+}
+
+func (c *DBLClient) createRequest(method, endpoint string, body io.Reader, auth bool) (*http.Request, error) {
+	req, err := http.NewRequest(method, BaseURL+endpoint, body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if auth {
+		req.Header.Set("Authorization", c.token)
+	}
+
+	return req, nil
 }
