@@ -1,6 +1,7 @@
 package dbl
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,7 +12,7 @@ const (
 )
 
 func TestUsers(t *testing.T) {
-	client, err := NewClient("Unauthenticated request")
+	client, err := NewClient(os.Getenv("apikey"))
 
 	assert.Nil(t, err, "Client should be created w/o error")
 
