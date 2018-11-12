@@ -1,12 +1,12 @@
 ## Go DBL
 
 [![Build Status](https://travis-ci.com/rumblefrog/go-dbl.svg?branch=master)](https://travis-ci.com/rumblefrog/go-dbl)
-[![Go Report Card](https://goreportcard.com/badge/github.com/rumblefrog/go-dbl)](https://goreportcard.com/report/github.com/rumblefrog/go-dbl)
-[![GoDoc](https://godoc.org/github.com/rumblefrog/go-dbl?status.svg)](https://godoc.org/github.com/rumblefrog/go-dbl)
+[![Go Report Card](https://goreportcard.com/badge/github.com/DiscordBotList/go-dbl)](https://goreportcard.com/report/github.com/DiscordBotList/go-dbl)
+[![GoDoc](https://godoc.org/github.com/DiscordBotList/go-dbl?status.svg)](https://godoc.org/github.com/DiscordBotList/go-dbl)
 
 An API wrapper for [Discord Bots](https://discordbots.org/)
 
-Godoc is available here: https://godoc.org/github.com/rumblefrog/go-dbl
+Godoc is available here: https://godoc.org/github.com/DiscordBotList/go-dbl
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -26,7 +26,7 @@ Godoc is available here: https://godoc.org/github.com/rumblefrog/go-dbl
 ### Installing
 
 ```bash
-go get -u github.com/rumblefrog/go-dbl
+go get -u github.com/DiscordBotList/go-dbl
 ```
 
 ### Posting Stats
