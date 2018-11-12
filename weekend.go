@@ -10,7 +10,13 @@ type weekendResponse struct {
 
 // Check if the multiplier is live for the weekend
 func (c *DBLClient) IsMultiplierActive() (bool, error) {
-	res, err := c.client.Get(BaseURL + "weekend")
+	req, err := c.createRequest("GET", "weekend", nil)
+
+	if err != nil {
+		return false, err
+	}
+
+	res, err := c.client.Do(req)
 
 	if err != nil {
 		return false, err
