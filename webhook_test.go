@@ -46,5 +46,5 @@ func TestWebhookProcessing(t *testing.T) {
 
 	testListener.handlePayload(rec, req)
 
-	assert.Equal(t, http.StatusNoContent, rec.Code, "Request should succeed")
+	assert.Equal(t, http.StatusNoContent, rec.Code, "Request should succeed w/o content")
 }
