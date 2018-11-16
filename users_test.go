@@ -20,5 +20,5 @@ func TestUsers(t *testing.T) {
 
 	assert.Nil(t, err, "Unable to get user data")
 
-	assert.Equal(t, user.ID, testUserID, "Request & response user ID should match")
+	assert.Equal(t, testUserID, user.ID, "Request & response user ID should match")
 }

@@ -23,9 +23,9 @@ func TestBots(t *testing.T) {
 
 	assert.Nil(t, err, "Request should be successful (API depended)")
 
-	assert.Equal(t, len(bots.Results), fetchLimit, "Results array size should match request limit")
-	assert.Equal(t, bots.Count, fetchLimit, "Count should match request limit")
-	assert.Equal(t, bots.Offset, 0, "Offset should be zero or non-specified")
+	assert.Equal(t, fetchLimit, len(bots.Results), "Results array size should match request limit")
+	assert.Equal(t, fetchLimit, bots.Count, "Count should match request limit")
+	assert.Equal(t, 0, bots.Offset, "Offset should be zero or non-specified")
 }
 
 func TestBot(t *testing.T) {
@@ -37,5 +37,5 @@ func TestBot(t *testing.T) {
 
 	assert.Nil(t, err, "Unable to get user data")
 
-	assert.Equal(t, bot.ID, testBotID, "Request & result bot ID should match")
+	assert.Equal(t, testBotID, bot.ID, "Request & result bot ID should match")
 }
