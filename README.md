@@ -17,6 +17,7 @@ Godoc is available here: https://godoc.org/github.com/DiscordBotList/go-dbl
   - [Posting Stats](#posting-stats)
   - [Timeout option](#timeout-option)
   - [Ratelimits](#ratelimits)
+  - [Webhook](#webhook)
   - [More details](#more-details)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -32,6 +33,12 @@ go get -u github.com/DiscordBotList/go-dbl
 ### Posting Stats
 
 ```go
+package main
+
+import (
+	dbl "github.com/DiscordBotList/go-dbl"
+)
+
 func main() {
 	client, err := dbl.NewClient("Token")
 	
@@ -54,6 +61,12 @@ func main() {
 ### Timeout option
 
 ```go
+package main
+
+import (
+	dbl "github.com/DiscordBotList/go-dbl"
+)
+
 func main() {
 	client, err := dbl.NewClient(
 		"Token",
@@ -74,6 +87,27 @@ There's a local token bucket rate limiter, allowing for 60 requests a minute (si
 Upon reaching the local rate limit, `ErrLocalRatelimit` error will be returned
 
 If remote rate limit is exceeded, `ErrRemoteRatelimit` error will be returned and `RetryAfter` in client fields will be updated with the retry time
+
+### Webhook
+
+```go
+package main
+
+import (
+	dbl "github.com/DiscordBotList/go-dbl"
+)
+
+func main() {
+	listener := dbl.NewListener("AuthToken", handleVote)
+
+	// blocking call
+	listener.Serve(":9090")
+}
+
+func handleVote(payload *dbl.WebhookPayload) {
+	// perform on payload
+}
+```
 
 ### More details
 
