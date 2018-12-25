@@ -66,6 +66,10 @@ type Social struct {
 
 // Information about a particular user
 func (c *DBLClient) GetUser(UserID string) (*User, error) {
+	if c.token == "" {
+		return nil, ErrRequireAuthentication
+	}
+
 	req, err := c.createRequest("GET", "users/"+UserID, nil)
 
 	if err != nil {
