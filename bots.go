@@ -149,6 +149,10 @@ type BotStatsPayload struct {
 //
 // Use nil if no option is passed
 func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
+	if c.token == "" {
+		return nil, ErrRequireAuthentication
+	}
+
 	if !c.limiter.Allow() {
 		return nil, ErrLocalRatelimit
 	}
@@ -212,6 +216,10 @@ func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
 
 // Information about a specific bot
 func (c *DBLClient) GetBot(botID string) (*Bot, error) {
+	if c.token == "" {
+		return nil, ErrRequireAuthentication
+	}
+
 	if !c.limiter.Allow() {
 		return nil, ErrLocalRatelimit
 	}
@@ -337,6 +345,10 @@ func (c *DBLClient) HasUserVoted(botID, userID string) (bool, error) {
 
 // Information about a specific bot's stats
 func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
+	if c.token == "" {
+		return nil, ErrRequireAuthentication
+	}
+
 	if !c.limiter.Allow() {
 		return nil, ErrLocalRatelimit
 	}
@@ -376,6 +388,10 @@ func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
 //
 // If your bot is unsharded, pass in server count as the only item in the slice
 func (c *DBLClient) PostBotStats(botID string, payload BotStatsPayload) error {
+	if c.token == "" {
+		return ErrRequireAuthentication
+	}
+
 	if !c.limiter.Allow() {
 		return ErrLocalRatelimit
 	}
