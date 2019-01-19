@@ -408,8 +408,6 @@ func (c *DBLClient) PostBotStats(botID string, payload BotStatsPayload) error {
 		return err
 	}
 
-	req.Header.Set("Authorization", c.token)
-
 	res, err := c.client.Do(req)
 
 	if err != nil {
