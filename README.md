@@ -4,7 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/DiscordBotList/go-dbl)](https://goreportcard.com/report/github.com/DiscordBotList/go-dbl)
 [![GoDoc](https://godoc.org/github.com/DiscordBotList/go-dbl?status.svg)](https://godoc.org/github.com/DiscordBotList/go-dbl)
 
-An API wrapper for [Discord Bots](https://discordbots.org/)
+An API wrapper for [Discord Bots](https://top.gg/)
 
 Godoc is available here: https://godoc.org/github.com/DiscordBotList/go-dbl
 
