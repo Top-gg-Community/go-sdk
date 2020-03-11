@@ -409,6 +409,7 @@ func (c *DBLClient) PostBotStats(botID string, payload BotStatsPayload) error {
 	}
 
 	req.Header.Set("Authorization", c.token)
+	req.Header.Set("Content-Type", "application/json")
 
 	res, err := c.client.Do(req)
 
