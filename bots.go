@@ -148,7 +148,7 @@ type BotStatsPayload struct {
 // Information about different bots with an optional filter parameter
 //
 // Use nil if no option is passed
-func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
+func (c *Client) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
 	if c.token == "" {
 		return nil, ErrRequireAuthentication
 	}
@@ -191,7 +191,7 @@ func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
 		req.URL.RawQuery = q.Encode()
 	}
 
-	res, err := c.client.Do(req)
+	res, err := c.httpClient.Do(req)
 
 	if err != nil {
 		return nil, err
@@ -215,7 +215,7 @@ func (c *DBLClient) GetBots(filter *GetBotsPayload) (*GetBotsResult, error) {
 }
 
 // Information about a specific bot
-func (c *DBLClient) GetBot(botID string) (*Bot, error) {
+func (c *Client) GetBot(botID string) (*Bot, error) {
 	if c.token == "" {
 		return nil, ErrRequireAuthentication
 	}
@@ -230,7 +230,7 @@ func (c *DBLClient) GetBot(botID string) (*Bot, error) {
 		return nil, err
 	}
 
-	res, err := c.client.Do(req)
+	res, err := c.httpClient.Do(req)
 
 	if err != nil {
 		return nil, err
@@ -258,7 +258,7 @@ func (c *DBLClient) GetBot(botID string) (*Bot, error) {
 // Requires authentication
 //
 // IF YOU HAVE OVER 1000 VOTES PER MONTH YOU HAVE TO USE THE WEBHOOKS AND CAN NOT USE THIS
-func (c *DBLClient) GetVotes(botID string) ([]*User, error) {
+func (c *Client) GetVotes(botID string) ([]*User, error) {
 	if c.token == "" {
 		return nil, ErrRequireAuthentication
 	}
@@ -273,7 +273,7 @@ func (c *DBLClient) GetVotes(botID string) ([]*User, error) {
 		return nil, err
 	}
 
-	res, err := c.client.Do(req)
+	res, err := c.httpClient.Do(req)
 
 	if err != nil {
 		return nil, err
@@ -299,7 +299,7 @@ func (c *DBLClient) GetVotes(botID string) ([]*User, error) {
 // Use this endpoint to see who have upvoted your bot in the past 24 hours. It is safe to use this even if you have over 1k votes.
 //
 // Requires authentication
-func (c *DBLClient) HasUserVoted(botID, userID string) (bool, error) {
+func (c *Client) HasUserVoted(botID, userID string) (bool, error) {
 	if c.token == "" {
 		return false, ErrRequireAuthentication
 	}
@@ -320,7 +320,7 @@ func (c *DBLClient) HasUserVoted(botID, userID string) (bool, error) {
 
 	req.URL.RawQuery = q.Encode()
 
-	res, err := c.client.Do(req)
+	res, err := c.httpClient.Do(req)
 
 	if err != nil {
 		return false, err
@@ -344,7 +344,7 @@ func (c *DBLClient) HasUserVoted(botID, userID string) (bool, error) {
 }
 
 // Information about a specific bot's stats
-func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
+func (c *Client) GetBotStats(botID string) (*BotStats, error) {
 	if c.token == "" {
 		return nil, ErrRequireAuthentication
 	}
@@ -359,7 +359,7 @@ func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
 		return nil, err
 	}
 
-	res, err := c.client.Do(req)
+	res, err := c.httpClient.Do(req)
 
 	if err != nil {
 		return nil, err
@@ -387,7 +387,7 @@ func (c *DBLClient) GetBotStats(botID string) (*BotStats, error) {
 // Requires authentication
 //
 // If your bot is unsharded, pass in server count as the only item in the slice
-func (c *DBLClient) PostBotStats(botID string, payload BotStatsPayload) error {
+func (c *Client) PostBotStats(botID string, payload *BotStatsPayload) error {
 	if c.token == "" {
 		return ErrRequireAuthentication
 	}
@@ -411,7 +411,7 @@ func (c *DBLClient) PostBotStats(botID string, payload BotStatsPayload) error {
 	req.Header.Set("Authorization", c.token)
 	req.Header.Set("Content-Type", "application/json")
 
-	res, err := c.client.Do(req)
+	res, err := c.httpClient.Do(req)
 
 	if err != nil {
 		return err

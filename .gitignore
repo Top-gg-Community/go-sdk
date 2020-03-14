@@ -1,3 +1,6 @@
+# IDE-specific metadata
+.idea/
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
