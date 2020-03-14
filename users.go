@@ -65,7 +65,7 @@ type Social struct {
 }
 
 // Information about a particular user
-func (c *DBLClient) GetUser(UserID string) (*User, error) {
+func (c *Client) GetUser(UserID string) (*User, error) {
 	if c.token == "" {
 		return nil, ErrRequireAuthentication
 	}
@@ -76,7 +76,7 @@ func (c *DBLClient) GetUser(UserID string) (*User, error) {
 		return nil, err
 	}
 
-	res, err := c.client.Do(req)
+	res, err := c.httpClient.Do(req)
 
 	if err != nil {
 		return nil, err

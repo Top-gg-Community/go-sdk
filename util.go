@@ -11,7 +11,7 @@ type ratelimitResponse struct {
 	RetryAfter int `json:"retry-after"`
 }
 
-func (c *DBLClient) readBody(res *http.Response) ([]byte, error) {
+func (c *Client) readBody(res *http.Response) ([]byte, error) {
 	defer res.Body.Close()
 
 	if res.StatusCode == 401 {
@@ -47,7 +47,7 @@ func (c *DBLClient) readBody(res *http.Response) ([]byte, error) {
 	return body, nil
 }
 
-func (c *DBLClient) createRequest(method, endpoint string, body io.Reader) (*http.Request, error) {
+func (c *Client) createRequest(method, endpoint string, body io.Reader) (*http.Request, error) {
 	req, err := http.NewRequest(method, BaseURL+endpoint, body)
 
 	if err != nil {

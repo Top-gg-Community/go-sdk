@@ -9,7 +9,7 @@ type weekendResponse struct {
 }
 
 // Check if the multiplier is live for the weekend
-func (c *DBLClient) IsMultiplierActive() (bool, error) {
+func (c *Client) IsMultiplierActive() (bool, error) {
 	if c.token == "" {
 		return false, ErrRequireAuthentication
 	}
@@ -20,7 +20,7 @@ func (c *DBLClient) IsMultiplierActive() (bool, error) {
 		return false, err
 	}
 
-	res, err := c.client.Do(req)
+	res, err := c.httpClient.Do(req)
 
 	if err != nil {
 		return false, err
