@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	expectedSmallWidget       = BaseURL + "widgets/servers/441751906428256277.svg?leftcolor=555798&righttextcolor=f12350"
-	expectedSmallWidgetNoType = BaseURL + "widgets/status/441751906428256277.svg?avatarbg=987230&lefttextcolor=123890"
+	expectedSmallWidget       = BaseURL + "widgets/servers/574652751745777665.svg?leftcolor=555798&righttextcolor=f12350"
+	expectedSmallWidgetNoType = BaseURL + "widgets/status/574652751745777665.svg?avatarbg=987230&lefttextcolor=123890"
 )
 
 func TestWidgetSmall(t *testing.T) {

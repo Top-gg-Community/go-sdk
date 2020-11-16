@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	expectedLargeWidget      = BaseURL + "widgets/441751906428256277.png?certifiedcolor=343434&topcolor=fffff"
-	expectedLargeWidgetNoExt = BaseURL + "widgets/441751906428256277.svg?datacolor=309839"
+	expectedLargeWidget      = BaseURL + "widgets/574652751745777665.png?certifiedcolor=343434&topcolor=fffff"
+	expectedLargeWidgetNoExt = BaseURL + "widgets/574652751745777665.svg?datacolor=309839"
 )
 
 func TestWidgetLarge(t *testing.T) {

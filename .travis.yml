@@ -1,12 +1,11 @@
 language: go
 
 go:
-  - 1.14
+  - 1.15
   - tip
 
 os:
   - linux
-  - osx
 
 matrix:
   allow_failures:

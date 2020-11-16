@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	testBotID  = "441751906428256277"
+	testBotID  = "574652751745777665"
 	fetchLimit = 20
 )
 
