@@ -12,13 +12,15 @@ Godoc is available here: https://godoc.org/github.com/DiscordBotList/go-dbl
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
+- [Go DBL](#go-dbl)
+- [Table of Contents](#table-of-contents)
 - [Guides](#guides)
-  - [Installing](#installing)
-  - [Posting Stats](#posting-stats)
-  - [Setting options](#setting-options)
-  - [Ratelimits](#ratelimits)
-  - [Webhook](#webhook)
-  - [More details](#more-details)
+	- [Installing](#installing)
+	- [Posting Stats](#posting-stats)
+	- [Setting options](#setting-options)
+	- [Ratelimits](#ratelimits)
+	- [Webhook](#webhook)
+	- [More details](#more-details)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -27,7 +29,7 @@ Godoc is available here: https://godoc.org/github.com/DiscordBotList/go-dbl
 ### Installing
 
 ```bash
-go get -u github.com/DiscordBotList/go-dbl
+go get -u github.com/top-gg/go-dbl
 ```
 
 ### Posting Stats
@@ -38,7 +40,7 @@ package main
 import (
 	"log"
 
-	"github.com/DiscordBotList/go-dbl"
+	"github.com/top-gg/go-dbl"
 )
 
 func main() {
@@ -68,7 +70,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/DiscordBotList/go-dbl"
+	"github.com/top-gg/go-dbl"
 )
 
 const clientTimeout = 5 * time.Second
@@ -107,7 +109,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/DiscordBotList/go-dbl"
+	"github.com/top-gg/go-dbl"
 )
 
 const listenerPort = ":9090"
