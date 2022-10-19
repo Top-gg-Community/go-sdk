@@ -5,6 +5,10 @@ import (
 	"strconv"
 )
 
+type DBL struct {
+	Key string
+}
+
 type Extension int
 
 const (
@@ -13,13 +17,12 @@ const (
 )
 
 type Widget interface {
-	BotID() Widget
 	Generate() string
 	Extension() Widget
 }
 
 type WidgetData struct {
-	botID     string
+	botID     int
 	values    url.Values
 	extension Extension
 }
@@ -43,4 +46,24 @@ func (e Extension) Ext() string {
 			return ".svg"
 		}
 	}
+}
+
+func (c *DBL) Widget(botID int, extension Extension) Widget{
+	return &WidgetData{
+		botID:     botID,
+		values:    url.Values{},
+		extension: extension,
+	}
+}
+
+func (w *WidgetData) BotID() int {
+	return w.botID
+}
+
+func (w *WidgetData) Extension() Extension {
+	return w.extension
+}
+
+func (w *WidgetData) SetValue(key string, value int64) {
+	w.values.Add(key, strconv.FormatInt(value, 16))
 }
